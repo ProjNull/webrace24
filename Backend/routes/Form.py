@@ -1,9 +1,10 @@
 # Wrapper
 from Wrapper.middleCrud import (missing_params, formCommit, getAUsers, getAllowed, postAllowed)
+# JWT
+from jwt import requires_authorization
 # Packages
 from flask import render_template, Blueprint, request, jsonify
 from Database.Database import Session
-from Database.UserModel import Users
 
 Form = Blueprint("form", __name__, url_prefix="/form")
 session_instance = Session()
@@ -26,11 +27,12 @@ def sendForm():
     
     return {"message": returnValue, "Status": "ok"}
 
+@requires_authorization
 @Form.route("/getAllUsers", methods=["GET"])
 def getAllUsers():
     getAllowed(request)
-    
-    users = getAUsers()
+    token = request.json.get("token")
+    users = getAUsers(token)
     
     if users != None:
         return jsonify({"status": "ok"}, users)

@@ -1,6 +1,7 @@
-from flask import Flask, jsonify, request
-
+from flask import Flask, jsonify, request, json
+from jwt import generate_jwt, verify_jwt, requires_authorization
 from Wrapper.middleCrud import createToken, postAllowed
+from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key' 
@@ -8,6 +9,24 @@ app.config['SECRET_KEY'] = 'your_secret_key'
 # Blueprint imports
 from Form import Form
 app.register_blueprint(Form, url_prefix="/form")
+
+@app.errorhandler(HTTPException)
+def handle_exception(e):
+    """
+    Handle HTTP exceptions by returning JSON responses.
+
+    :param e: The HTTPException to handle.
+    """
+    response = e.get_response()
+    response.data = json.dumps(
+        {
+            "code": e.code,
+            "name": e.name,
+            "description": e.description,
+        }
+    )
+    response.content_type = "application/json"
+    return response
 
 @app.after_request
 def add_header(response):
@@ -31,10 +50,12 @@ def login():
     name = request.json.get("name")
     password = request.json.get("password")
     
-    token = createToken(name, password)
-    # TODO: Make better token
-    
-    return {"status": "ok", "token": token}
+    return jsonify(
+                {
+                    "token": generate_jwt({"User_ID": 1}), # TODO: Fetch ID of admin from DB
+                    "message": "Sign in successfull",
+                }
+            )
 
 if __name__ == "__main__":
     app.run("0.0.0.0", 8000)

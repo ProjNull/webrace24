@@ -1,7 +1,8 @@
-import base64
+
 from Database.UserModel import Users
 from contextlib import contextmanager
 from Database.Database import Session
+
 
 def getAllowed(request):
     if request.method != "GET": return {"message": "Only GET allowed!", "status": 400}
@@ -22,12 +23,6 @@ def get_db() -> Session:
 
 def missing_params(*params):
     return not (None in params)
-
-def createToken(username, password):
-    passname = username + password
-    token_bytes = base64.b64encode(passname.encode())
-    token_string = token_bytes.decode('utf-8')
-    return token_string
     
 def formCommit(firstName, lastName, email, phone, githubUrl, preferences, other):
     details = Users(firstName=firstName, lastName=lastName, email=email, phone=phone, githubUrl=githubUrl, preferences=preferences, other=other)
@@ -43,7 +38,8 @@ def formCommit(firstName, lastName, email, phone, githubUrl, preferences, other)
     except:
         return None
 
-def getAUsers():
+def getAUsers(token):
+    
     try: 
         with get_db() as session:
             users = session.query(Users).all()
