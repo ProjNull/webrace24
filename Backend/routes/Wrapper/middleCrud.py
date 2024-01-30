@@ -17,8 +17,8 @@ def get_db() -> Session:
 def missing_params(*params):
     return not (None in params)
     
-def formCommit(firstName, lastName, email, phone, githubUrl, preferences, other, session_instance):
-    details = Users(firstName=firstName, lastName=lastName, email=email, phone=phone, githubUrl=githubUrl, preferences=preferences, other=other)
+def formCommit(firstName, lastName, email, phone, githubUrl, preferences, message, other, session_instance):
+    details = Users(firstName=firstName, lastName=lastName, email=email, phone=phone, githubUrl=githubUrl, preferences=preferences, message=message, other=other)
             
     session_instance.add(details)
     session_instance.commit()

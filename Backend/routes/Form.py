@@ -20,11 +20,12 @@ def sendForm():
     phone = request.json.get("phone")
     githubUrl = request.json.get("githubUrl")
     preferences = request.json.get("preferences")
+    message = request.json.get("message")
     other = request.json.get("other")
     
     if missing_params(firstName, lastName): return {"message": "Missing params!", "status": 400}
     
-    returnValue = formCommit(firstName, lastName, email, phone, githubUrl, preferences, other, session_instance)
+    returnValue = formCommit(firstName, lastName, email, phone, githubUrl, preferences, message, other, session_instance)
     
     return {"message": returnValue, "Status": "ok"}
 
