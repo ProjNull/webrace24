@@ -1,12 +1,12 @@
-from flask import Flask, render_template
+from flask import Flask, jsonify
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key' 
 
 # Blueprint imports
-#from RustPlusWeb import RustPlus
-#app.register_blueprint(User, url_prefix="/user")
+from Form import Form
+app.register_blueprint(Form, url_prefix="/form")
 
 @app.route("/")
 def index():
-    return "Hi"
+    return jsonify("hi")
