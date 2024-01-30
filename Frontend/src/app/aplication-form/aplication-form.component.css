@@ -1,3 +1,9 @@
-input, select {
-    @apply block bg-gray-900 p-2 rounded-md border-t border-gray-800 focus:bg-gray-800 focus:border-gray-700 focus:outline-none;
+input, select, textarea {
+    @apply box-border block transition-all bg-gray-950 p-2 rounded-md focus:bg-gray-800 outline-none focus:outline-none outline-offset-8
+}
+
+form.validate input,
+form.validate select,
+form.validate textarea {
+    @apply outline-green-500 invalid:outline-red-900 valid:outline-green-900 outline-offset-0;
 }

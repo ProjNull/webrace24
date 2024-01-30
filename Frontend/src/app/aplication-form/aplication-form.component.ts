@@ -1,6 +1,7 @@
 import { Component, forwardRef } from '@angular/core';
 import { FormControl, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
 import { BeForm, BeFormUnverified } from '../../be';
+import { BeApiService } from '../be-api.service';
 
 @Component({
   selector: 'app-aplication-form',
@@ -17,6 +18,7 @@ import { BeForm, BeFormUnverified } from '../../be';
   ]
 })
 export class AplicationFormComponent {
+  validate = false;
   rawData: BeFormUnverified = {
     firstName: new FormControl(''),
     lastName: new FormControl(''),
@@ -28,9 +30,12 @@ export class AplicationFormComponent {
     
   }
 
-  onSubmit() {
+  constructor(private api: BeApiService) { }
+
+  onSubmit($event: Event) {
+    $event.preventDefault();
+    this.validate = true;
     if (this.rawData.firstName.value === '') {
-      alert('Please enter your first name');
       return;
     }
     if (this.rawData.lastName.value === '') {
@@ -67,5 +72,9 @@ export class AplicationFormComponent {
       preferences: this.rawData.preferences.value,
       massage: this.rawData.massage.value,
     }
+
+    this.api.sendForm(data).subscribe((res) => {
+    });
+
   }
 }

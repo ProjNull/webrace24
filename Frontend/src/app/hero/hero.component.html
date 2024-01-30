@@ -1,6 +1,16 @@
-<div class="flex flex-col justify-center items-center h-[50vh]">
-    <h1><ng-content select="[title]"></ng-content></h1>
-    <div>
-        <ng-content select="[content]"></ng-content>
+<div class="flex flex-row justify-center items-center h-[90vh] relative">
+    
+    <div class="absolute top-0 left-0 w-full h-full z-0 flex">
+        <video src="assets/bg-vid.mp4" loop muted autoplay class="object-cover flex-grow border-gray-950 rounded-2xl m-2" alt=""></video>
+        <!-- <div class="bg-gradient-to-t from-gray-950 absolute inset-0">
+
+        </div> -->
     </div>
+    <div class="z-10 p-4 rounded-2xl ">
+        <h1 class=" z-10 text-2xl font-bold text-center"><ng-content select="[title]"></ng-content></h1>
+        <div class="z-10 max-w-[70vh] text-lg text-center">
+            <ng-content select="[content]"></ng-content>
+        </div>
+    </div>
+    <!-- <app-aplication-form class="z-10"></app-aplication-form> -->
 </div>

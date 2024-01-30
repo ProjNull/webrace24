@@ -1,9 +1,14 @@
-<form (submit)="onSubmit">
-    <input type="text" [formControl]="rawData.firstName" required placeholder="First Name*">
-    <input type="text" [formControl]="rawData.lastName" required placeholder="Last Name*">
-    <input type="text" [formControl]="rawData.firstName" placeholder="Email">
-    <input type="text" [formControl]="rawData.firstName" placeholder="Phone">
-    <input type="text" [formControl]="rawData.githubUrl" placeholder="Github">
+
+<form [class]="{'validate':validate}" class="relative shadow-xl max-w-[30rem] mx-auto flex gap-2 flex-col bg-gray-900 border-t border-gray-800 p-2 rounded-xl" (submit)="onSubmit($event)">
+    <div class="flex gap-2 w-full">
+        <input type="text" class="flex-1" [formControl]="rawData.firstName" required placeholder="First Name*">
+        <input type="text" class="flex-1" [formControl]="rawData.lastName" required placeholder="Last Name*">
+    </div>
+    
+    <input type="email" [formControl]="rawData.email" required placeholder="Email">
+    <input type="phone" [formControl]="rawData.phone" placeholder="Phone">
+    <input type="text" [formControl]="rawData.githubUrl" required placeholder="Github">
+    
     <select [formControl]="rawData.preferences">
         <option value="Backend">Backend</option>
         <option value="Frontend">Frontend</option>
@@ -11,5 +16,7 @@
         <option value="Design">Design</option>
         <option value="Project Management">Project Management</option>
     </select>
+    <textarea [formControl]="rawData.massage" required placeholder="Message*" style="resize: none;"></textarea>
     <input class="subbmit" type="submit" value="Send">
 </form>
+
