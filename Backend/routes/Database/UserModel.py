@@ -24,7 +24,7 @@ class Users(Base):
     )
     email = Column(
         String, 
-        nullable=False, 
+        nullable=True, 
         unique=True
     )
     phone = Column(
