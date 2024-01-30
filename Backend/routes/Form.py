@@ -29,9 +29,8 @@ def sendForm():
     
     return {"message": returnValue, "Status": "ok"}
 
-@requires_authorization
 @Form.route("/getAllUsers", methods=["GET"])
 def getAllUsers():
     users = getAUsers(session_instance)
     
-    return jsonify({"status": "ok"}, users)
+    return jsonify({"status": "ok", "users": [user.serialize() for user in users]})

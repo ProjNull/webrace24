@@ -1,18 +1,5 @@
 
 from Database.UserModel import Users
-from contextlib import contextmanager
-from Database.Database import Session
-    
-@contextmanager
-def get_db() -> Session:
-    db = Session()  # Create a new database session
-    try:
-        yield db  # Provide the session to the route function
-    except Exception as e:
-        db.rollback()
-        raise e
-    finally:
-        db.close()  # Close the session after the route function is done
 
 def missing_params(*params):
     return not (None in params)

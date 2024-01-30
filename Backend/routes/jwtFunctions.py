@@ -4,7 +4,6 @@ from functools import wraps
 import jwt
 from flask import jsonify, request
 from cfg import SECRET_KEY
-from Wrapper.middleCrud import get_db
 from Database.UserModel import Users
 
 def generate_jwt(payload):
@@ -78,11 +77,11 @@ def requires_authorization(f):
         try:
             # decoding the payload to fetch the stored details
             data = verify_jwt(token)
-            with get_db() as session_instance:
-                current_user = (
-                    session_instance.query(Users).filter_by(
-                        Id=data["Id"]).first()
-                )
+            from Form import session_instance
+            current_user = (
+                session_instance.query(Users).filter_by(
+                    Id=data["Id"]).first()
+            )
         except:
             return (
                 jsonify({"message": "Token evaluation unsuccessfull"}),
