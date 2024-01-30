@@ -25,8 +25,9 @@ def missing_params(*params):
 
 def createToken(username, password):
     passname = username + password
-    token = base64.encode(passname)
-    return token
+    token_bytes = base64.b64encode(passname.encode())
+    token_string = token_bytes.decode('utf-8')
+    return token_string
     
 def formCommit(firstName, lastName, email, phone, githubUrl, preferences, other):
     details = Users(firstName=firstName, lastName=lastName, email=email, phone=phone, githubUrl=githubUrl, preferences=preferences, other=other)
