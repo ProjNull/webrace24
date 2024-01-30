@@ -7,7 +7,7 @@ from Database.Database import Session
 Form = Blueprint("form", __name__, url_prefix="/form")
 session_instance = Session()
 
-from jwt import requires_authorization  # Import here to avoid circular import
+from jwtFunctions import requires_authorization  # Import here to avoid circular import
 from Form import Form
 
 @Form.route("/send", methods=["POST"])

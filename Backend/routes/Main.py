@@ -48,7 +48,7 @@ def login():
     
     name = request.json.get("name")
     password = request.json.get("password")
-    from jwt import generate_jwt
+    from jwtFunctions import generate_jwt
     return jsonify(
                 {
                     "token": generate_jwt({"User_ID": 1}), # TODO: Fetch ID of admin from DB
