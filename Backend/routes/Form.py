@@ -31,4 +31,4 @@ def sendForm():
 def getAllUsers():
     users = getAUsers(session_instance)
     
-    return jsonify({"status": "ok", "users": [user.serialize() for user in users]})
+    return jsonify({"status": "ok", "users": [jsonify(user) for user in users]})
