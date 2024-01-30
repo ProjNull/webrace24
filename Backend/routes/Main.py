@@ -9,6 +9,17 @@ app.config['SECRET_KEY'] = 'your_secret_key'
 from Form import Form
 app.register_blueprint(Form, url_prefix="/form")
 
+@app.after_request
+def add_header(response):
+    """
+    Add an Access-Control-Allow-Origin header to the response.
+
+    :param response: The Flask response object.
+    """
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Headers"] = "content-type, authorization"
+    return response
+
 @app.route("/")
 def index():
     return jsonify("hi")

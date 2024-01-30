@@ -1,5 +1,5 @@
 # Wrapper
-from Wrapper.middleCrud import missing_params
+from Wrapper.middleCrud import (missing_params, formCommit, getAUsers)
 # Packages
 from flask import render_template, Blueprint, request, jsonify
 from Database.Database import Session
@@ -24,6 +24,18 @@ def sendForm():
     if missing_params(firstName, lastName):
         return {"message": "Missing params!", "status": 400}
     
-    # TODO: Do magic in here
+    returnValue = formCommit(firstName, lastName, email, phone, githubUrl, preferences, other)
     
-    return jsonify("Status:", "ok")
+    return {"message": returnValue, "Status": "ok"}
+
+@Form.route("/getAllUsers", methods=["GET"])
+def getAllUsers():
+    if request.method != "GET":
+        return {"message": "Only GET allowed!", "status": 400}
+    
+    users = getAUsers()
+    
+    if users != None:
+        return jsonify({"status": "ok"}, users)
+    
+    return {"Status": 500}
