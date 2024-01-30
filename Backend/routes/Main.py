@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, request, json
-from Wrapper.middleCrud import createToken, postAllowed
+from Wrapper.middleCrud import postAllowed
 from werkzeug.exceptions import HTTPException
 
 app = Flask(__name__)
