@@ -33,5 +33,4 @@ def sendForm():
 def getAllUsers():
     users = getAUsers()
     
-
     return jsonify({"status": "ok"}, users)
