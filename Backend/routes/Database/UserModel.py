@@ -7,6 +7,13 @@ Base = declarative_base()
 class Users(Base):
     __tablename__ = "Users"
 
+    Id = Column(
+        Integer, 
+        nullable=False,
+        unique=True, 
+        primary_key=True, 
+        autoincrement=True
+    )
     firstName = Column(
         String, 
         nullable=False,
