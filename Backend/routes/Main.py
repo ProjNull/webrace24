@@ -1,9 +1,9 @@
 from flask import Flask, jsonify, request, json
 from Wrapper.middleCrud import postAllowed
 from werkzeug.exceptions import HTTPException
-
+from cfg import SECRET_KEY
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key' 
+app.config['SECRET_KEY'] = SECRET_KEY
 
 # Blueprint imports
 from Form import Form

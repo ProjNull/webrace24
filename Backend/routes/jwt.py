@@ -3,7 +3,7 @@ from functools import wraps
 
 import jwt
 from flask import jsonify, request
-from Main import SECRET_KEY
+from cfg import SECRET_KEY
 from Wrapper.middleCrud import get_db
 from Database.UserModel import Users
 

@@ -1,13 +1,14 @@
 # Wrapper
 from Wrapper.middleCrud import (missing_params, formCommit, getAUsers, getAllowed, postAllowed)
-# JWT
-from jwt import requires_authorization
 # Packages
 from flask import render_template, Blueprint, request, jsonify
 from Database.Database import Session
 
 Form = Blueprint("form", __name__, url_prefix="/form")
 session_instance = Session()
+
+from jwt import requires_authorization  # Import here to avoid circular import
+from Form import Form
 
 @Form.route("/send", methods=["POST"])
 def sendForm():
