@@ -39,6 +39,10 @@ class Users(Base):
         String, 
         nullable=True
     )
+    message = Column(
+        String, 
+        nullable=False,
+    )
     other = Column(
         String, 
         nullable=True
