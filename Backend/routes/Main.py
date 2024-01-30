@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request
 
-from Wrapper.middleCrud import createToken
+from Wrapper.middleCrud import createToken, postAllowed
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key' 
@@ -26,6 +26,8 @@ def index():
 
 @app.route("/login", methods=["POST"])
 def login():
+    postAllowed(request)
+    
     name = request.json.get("name")
     password = request.json.get("password")
     

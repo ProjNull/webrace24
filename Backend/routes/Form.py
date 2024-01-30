@@ -1,5 +1,5 @@
 # Wrapper
-from Wrapper.middleCrud import (missing_params, formCommit, getAUsers)
+from Wrapper.middleCrud import (missing_params, formCommit, getAUsers, getAllowed, postAllowed)
 # Packages
 from flask import render_template, Blueprint, request, jsonify
 from Database.Database import Session
@@ -10,8 +10,7 @@ session_instance = Session()
 
 @Form.route("/send", methods=["POST"])
 def sendForm():
-    if request.method != "POST":
-        return {"message": "Only POST allowed!", "status": 400}
+    postAllowed(request)
     
     firstName = request.json.get("firstName")
     lastName = request.json.get("lastName")
@@ -21,8 +20,7 @@ def sendForm():
     preferences = request.json.get("preferences")
     other = request.json.get("other")
     
-    if missing_params(firstName, lastName):
-        return {"message": "Missing params!", "status": 400}
+    if missing_params(firstName, lastName): return {"message": "Missing params!", "status": 400}
     
     returnValue = formCommit(firstName, lastName, email, phone, githubUrl, preferences, other)
     
@@ -30,8 +28,7 @@ def sendForm():
 
 @Form.route("/getAllUsers", methods=["GET"])
 def getAllUsers():
-    if request.method != "GET":
-        return {"message": "Only GET allowed!", "status": 400}
+    getAllowed(request)
     
     users = getAUsers()
     

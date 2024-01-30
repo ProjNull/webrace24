@@ -3,6 +3,12 @@ from Database.UserModel import Users
 from contextlib import contextmanager
 from Database.Database import Session
 
+def getAllowed(request):
+    if request.method != "GET": return {"message": "Only GET allowed!", "status": 400}
+
+def postAllowed(request):
+    if request.method != "POST": return {"message": "Only POST allowed!", "status": 400}
+    
 @contextmanager
 def get_db() -> Session:
     db = Session()  # Create a new database session
@@ -28,8 +34,8 @@ def formCommit(firstName, lastName, email, phone, githubUrl, preferences, other)
     try:
         with get_db() as session:
             User_exists = session.query(Users).filter_by(email=email).first()
-            if not User_exists is None:
-                return None
+            if not User_exists is None: return None
+            
             session.add(details)
             session.commit()
             return details.Id
