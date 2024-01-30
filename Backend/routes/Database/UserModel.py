@@ -41,7 +41,7 @@ class Users(Base):
     )
     message = Column(
         String, 
-        nullable=False,
+        nullable=True,
     )
     other = Column(
         String, 
