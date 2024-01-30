@@ -24,13 +24,13 @@ def sendForm():
     
     if missing_params(firstName, lastName): return {"message": "Missing params!", "status": 400}
     
-    returnValue = formCommit(firstName, lastName, email, phone, githubUrl, preferences, other)
+    returnValue = formCommit(firstName, lastName, email, phone, githubUrl, preferences, other, session_instance)
     
     return {"message": returnValue, "Status": "ok"}
 
 @requires_authorization
 @Form.route("/getAllUsers", methods=["GET"])
 def getAllUsers():
-    users = getAUsers()
+    users = getAUsers(session_instance)
     
     return jsonify({"status": "ok"}, users)

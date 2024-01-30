@@ -17,25 +17,13 @@ def get_db() -> Session:
 def missing_params(*params):
     return not (None in params)
     
-def formCommit(firstName, lastName, email, phone, githubUrl, preferences, other):
+def formCommit(firstName, lastName, email, phone, githubUrl, preferences, other, session_instance):
     details = Users(firstName=firstName, lastName=lastName, email=email, phone=phone, githubUrl=githubUrl, preferences=preferences, other=other)
-    
-    try:
-        with get_db() as session:
-            User_exists = session.query(Users).filter_by(email=email).first()
-            if not User_exists is None: return None
             
-            session.add(details)
-            session.commit()
-            return details.Id
-    except:
-        return None
+    session_instance.add(details)
+    session_instance.commit()
+    return details.Id
 
-def getAUsers():
-    
-    try: 
-        with get_db() as session:
-            users = session.query(Users).all()
-            return users
-    except:
-        return None
+def getAUsers(session_instance):
+    users = session_instance.query(Users).all()
+    return users
