@@ -1,5 +1,4 @@
 from flask import Flask, jsonify, request, json
-from jwt import generate_jwt, verify_jwt, requires_authorization
 from Wrapper.middleCrud import createToken, postAllowed
 from werkzeug.exceptions import HTTPException
 
@@ -49,7 +48,7 @@ def login():
     
     name = request.json.get("name")
     password = request.json.get("password")
-    
+    from jwt import generate_jwt
     return jsonify(
                 {
                     "token": generate_jwt({"User_ID": 1}), # TODO: Fetch ID of admin from DB
