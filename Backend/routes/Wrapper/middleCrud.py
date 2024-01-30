@@ -31,7 +31,7 @@ def formCommit(firstName, lastName, email, phone, githubUrl, preferences, other)
     except:
         return None
 
-def getAUsers(token):
+def getAUsers():
     
     try: 
         with get_db() as session:

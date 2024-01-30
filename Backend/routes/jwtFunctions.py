@@ -81,7 +81,7 @@ def requires_authorization(f):
             with get_db() as session_instance:
                 current_user = (
                     session_instance.query(Users).filter_by(
-                        User_ID=data["User_ID"]).first()
+                        Id=data["Id"]).first()
                 )
         except:
             return (
