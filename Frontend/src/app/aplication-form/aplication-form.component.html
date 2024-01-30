@@ -1,0 +1,15 @@
+<form (submit)="onSubmit">
+    <input type="text" [formControl]="rawData.firstName" required placeholder="First Name*">
+    <input type="text" [formControl]="rawData.lastName" required placeholder="Last Name*">
+    <input type="text" [formControl]="rawData.firstName" placeholder="Email">
+    <input type="text" [formControl]="rawData.firstName" placeholder="Phone">
+    <input type="text" [formControl]="rawData.githubUrl" placeholder="Github">
+    <select [formControl]="rawData.preferences">
+        <option value="Backend">Backend</option>
+        <option value="Frontend">Frontend</option>
+        <option value="Fullstack">Fullstack</option>
+        <option value="Design">Design</option>
+        <option value="Project Management">Project Management</option>
+    </select>
+    <input class="subbmit" type="submit" value="Send">
+</form>

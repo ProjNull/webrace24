@@ -3,5 +3,5 @@
 }
 
 nav {
-    @apply flex items-center justify-between px-4 py-0 bg-gray-900 bottom-0 border-t border-gray-800 m-2 rounded-2xl bg-opacity-70 backdrop-blur-md backdrop-saturate-150
+    @apply flex items-center px-4 py-0 bg-gray-900 bottom-0 border-t border-gray-800 m-2 rounded-2xl bg-opacity-70 backdrop-blur-md backdrop-saturate-150
 }
