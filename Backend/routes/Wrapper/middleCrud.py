@@ -2,13 +2,6 @@
 from Database.UserModel import Users
 from contextlib import contextmanager
 from Database.Database import Session
-
-
-def getAllowed(request):
-    if request.method != "GET": return {"message": "Only GET allowed!", "status": 400}
-
-def postAllowed(request):
-    if request.method != "POST": return {"message": "Only POST allowed!", "status": 400}
     
 @contextmanager
 def get_db() -> Session:

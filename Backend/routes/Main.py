@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, json
-from Wrapper.middleCrud import postAllowed
 from werkzeug.exceptions import HTTPException
 from cfg import SECRET_KEY
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = SECRET_KEY
 
@@ -44,10 +44,10 @@ def index():
 
 @app.route("/login", methods=["POST"])
 def login():
-    postAllowed(request)
     
     name = request.json.get("name")
     password = request.json.get("password")
+    
     from jwtFunctions import generate_jwt
     return jsonify(
                 {

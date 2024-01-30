@@ -1,18 +1,47 @@
 # Wrapper
-from Wrapper.middleCrud import (missing_params, formCommit, getAUsers, getAllowed, postAllowed)
+from Wrapper.middleCrud import (missing_params, formCommit, getAUsers)
 # Packages
-from flask import render_template, Blueprint, request, jsonify
+from flask import render_template, Blueprint, request, jsonify, json
 from Database.Database import Session
+from werkzeug.exceptions import HTTPException
 
 Form = Blueprint("form", __name__, url_prefix="/form")
 session_instance = Session()
+
+@Form.errorhandler(HTTPException)
+def handle_exception(e):
+    """
+    Handle HTTP exceptions by returning JSON responses.
+
+    :param e: The HTTPException to handle.
+    """
+    response = e.get_response()
+    response.data = json.dumps(
+        {
+            "code": e.code,
+            "name": e.name,
+            "description": e.description,
+        }
+    )
+    response.content_type = "application/json"
+    return response
+
+@Form.after_request
+def add_header(response):
+    """
+    Add an Access-Control-Allow-Origin header to the response.
+
+    :param response: The Flask response object.
+    """
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Headers"] = "content-type, authorization"
+    return response
 
 from jwtFunctions import requires_authorization  # Import here to avoid circular import
 from Form import Form
 
 @Form.route("/send", methods=["POST"])
 def sendForm():
-    postAllowed(request)
     
     firstName = request.json.get("firstName")
     lastName = request.json.get("lastName")
@@ -29,13 +58,13 @@ def sendForm():
     return {"message": returnValue, "Status": "ok"}
 
 @requires_authorization
-@Form.route("/getAllUsers", methods=["GET"])
+@Form.route("/getAllUsers", methods=["POST"])
 def getAllUsers():
-    getAllowed(request)
+    
     token = request.json.get("token")
     users = getAUsers(token)
     
     if users != None:
         return jsonify({"status": "ok"}, users)
     
-    return {"Status": 500}
+    return jsonify({"Status": 500})
